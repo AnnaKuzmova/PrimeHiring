@@ -1,0 +1,74 @@
+/*Reseting browser's default settings and giving base elements basic styling*/
+
+:root {
+    --black : rgb(37, 37, 37);
+    --white : rgb(245, 245, 245);
+    --green : rgb(70, 161, 70);
+    --red : rgb(214, 78, 78);
+    --dark-purple : rgb(150, 86, 161);
+    --purple : rgb(231, 141, 179);
+    --gray : rgb(136, 134, 134) ;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    color: (--black);
+}
+
+a {
+    text-decoration: none;
+}
+
+/*Setting basic styles for buttons*/
+
+.button-dark,.button-light {
+    display: inline-block;
+    padding: .7em 1.8em;
+    border-radius: 25px;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    transition: .3s all ease-in;
+}
+
+.button-dark {
+    background-color: var(--dark-purple);
+    color: var(--white);
+}
+
+.button-light {
+    background-color: var(--purple);
+    color: var(--white);
+}
+
+.button-dark:hover {
+    background-color: transparent;
+    border: var(--dark-purple) 2px solid;
+    color: var(--dark-purple);
+    font-weight: bold;
+    transition: .3s all ease-in;
+}
+
+.button-light:hover {
+    background-color: transparent;
+    border: var(--purple) 2px solid;
+    color: var(--purple);
+    font-weight: bold;
+    transition: .3s all ease-in;
+}
+
+/*Adding basic classes to center and layout items*/
+
+.center {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
