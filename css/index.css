@@ -1,6 +1,6 @@
 .main-header {
     padding: 1em 0;
-    margin-bottom: 3em;
+    margin-bottom: 8em;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
 
 }
@@ -13,5 +13,63 @@
 
 .logo ~ a {
     margin-left: auto;
+}
+
+.dev-card {
+    position: relative;
+    width: 43%;
+    margin-bottom: 8em;
+    padding: .5em .8em;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: normal;
+}
+
+.dev-card img {
+    position: absolute;
+    left: 50%;
+    right: 50%;
+    transform: translate(-50%,-50%);
+    display: inline-block;
+    width: 150px;
+    height: 150px;
+    border: var(--dark-purple) 4px solid;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.dev-card h2 {
+   margin-top: 4em;
+   margin-bottom: 1em;
+}
+
+.info-icons {
+    font-weight: normal;
+    margin-top: 7em;
+}
+
+.info-icons i{
+    color: var(--dark-purple);
+}
+
+.dev-related-info {
+    margin-top: 0.8em;
+    margin-bottom: 1em;
+    text-align: left;
+}
+
+.dev-related-info p {
+    margin-bottom: 0.5em;
+    color: var(--dark-purple);
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: .9rem;
+}
+
+.dev-related-info p > span,a {
+    text-transform: initial;
+    font-weight: normal;
+    
 }
 
