@@ -1,50 +1,6 @@
-//Creating array of objects, that store data about divverent developers
-//Then push it to the localStorage object so that it will be easy to work later with it
-
-
-let developers = [
-    {
-        developerName : "Sandra Bullock",
-        email : 'sandy@gmail.com',
-        phoneNumber : '089654332',
-        location : 'Sofia, Bulgaria',
-        profilePicture : 'https://images.unsplash.com/photo-1493666438817-866a91353ca9?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=749&q=80',
-        pricePerHour : '50',
-        technology : 'PHP',
-        description : 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature.',
-        yearsOfExpirience: '8',
-        nativeLanguage : 'Bulgarian',
-        linkedInProfile : 'https://www.linkedin.com/'
-    },
-    {
-        developerName : "Alexander Newmann",
-        email : 'allexx@gmail.com',
-        phoneNumber : '09865433',
-        location : 'San Francisco, USA',
-        profilePicture : 'https://images.unsplash.com/photo-1583195764036-6dc248ac07d9?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=755&q=80',
-        pricePerHour : '30',
-        technology : 'Javascript',
-        description : 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature.',
-        yearsOfExpirience: '5',
-        nativeLanguage : 'English',
-        linkedInProfile : 'https://www.linkedin.com/'
-    },   {
-        developerName : "Sasha Lopez",
-        email : 'sashhhhh@gmail.com',
-        phoneNumber : '089654332',
-        location : 'Mexico City, Mexico',
-        profilePicture : 'https://images.unsplash.com/photo-1597223557154-721c1cecc4b0?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
-        pricePerHour : '45',
-        technology : 'C#',
-        description : 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature.',
-        yearsOfExpirience: '2',
-        nativeLanguage : 'Mexican',
-        linkedInProfile : 'https://www.linkedin.com/'
-    }
-]
-
-let developersSerialized = JSON.stringify(developers)
-window.localStorage.setItem('developers', developersSerialized)
+if(window.localStorage.getItem("developers") == null) {
+    window.localStorage.setItem("developers", "[]")
+}
 
 //Function for rendering every developer into an html card 
 //Getting the container/holder first, to push the developer card in the end
@@ -156,9 +112,8 @@ function renderDeveloperHTML(array) {
     })
 }
 
-
-
 let allDevelopers = JSON.parse(window.localStorage.getItem("developers"))
 renderDeveloperHTML(allDevelopers)
+
 
 

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Hiring - Create Developer</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="css/reset.css">
+        <link rel="stylesheet" href="css/index.css">
+        <link rel="stylesheet" href="css/create.css">
+    </head>
+    <body>
+        <header class="main-header">
+            <nav>
+              <div class="center">
+                  <div class="flex">
+                      <div class="flex">
+                      <h1 class="logo">Hiring</h1>
+                      <a href="create.html" class="button-dark">add developer</a>
+                  </div>
+              </div>
+            </nav>
+        </header>
+        <main>
+            <section class="form-picture-holder">
+                <div class="center">
+                <form action="" class="create-dev-form">
+                    <img src="images/developer.png" alt="">
+                    <div class="flex">
+                        <div class="form-items">
+                            <p>Name:</p>
+                            <input type="text" name="developer-name" class="dev-name" placeholder="example: John Smith">
+                            <span class="error-message" type="developerName"></span>
+                        </div>
+                        <div class="form-items">
+                            <p>Email:</p>
+                            <input type="email" name="developer-email" class="dev-email" placeholder="example: youremail@gmail.com">
+                            <span class="error-message" type="email"></span>
+                        </div>
+                    </div>
+                   <div class="flex">
+                       <div class="form-items">
+                        <p>Phone number:</p>
+                        <input type="tel" name="developer-phone-number" class="dev-phone-number" placeholder="example: 0856421..">
+                        <span class="error-message" type="phoneNumber"></span>
+                       </div>
+                       <div class="form-items">
+                        <p>Location:</p>
+                        <input type="text" name="developer-location" class="dev-location" placeholder="example: NYC, USA">
+                        <span class="error-message" type="location"></span>
+                       </div>
+                   </div>
+                   <div class="flex">
+                       <div class="form-items">
+                        <p>Price(per hour):</p>
+                        <input type="text" name="developer-price" class="dev-price">
+                        <span class="error-message" type="price"></span>
+                       </div>
+                       <div class="form-items">
+                        <p>Years of expirience:</p>
+                        <input type="text" name="developer-years-expirience" class="dev-years-of-expirience">
+                        <span class="error-message" type="yearsOfEexpirience"></span>
+                       </div>
+                   </div>
+                    <div class="flex">
+                        <div class="form-items">
+                            <p>Technology:</p>
+                            <select name="developer-techology" class="dev-technology">
+                                <option value="none" selected>-select-</option>
+                                <option value="js">Javascript</option>
+                                <option value="java">Java</option>
+                                <option value="net">.NET</option>
+                                <option value="flutter">Flutter</option>
+                                <option value="python">Python</option>
+                                <option value="php">PHP</option>
+                            </select>
+                            <span class="error-message" type="technology"></span>
+                        </div>
+                        <div class="form-items">
+                            <p>Native language:</p>
+                            <select name="developer-language" class="dev-language">
+                                <option value="none" selected>-select-</option>
+                                <option value="english">English</option>
+                                <option value="serbian">Serbian</option>
+                                <option value="bulgarian">Bulgarian</option>
+                            </select>
+                            <span class="error-message" type="language"></span>
+                        </div>
+                    </div>
+                    <p>Description <span>(optiona)</span>:</p>
+                    <textarea name="developer-description" class="dev-description"></textarea>
+                    <span class="error-message" type="description"></span>
+
+                    <p>linkedIN <span>(optiona)</span>:</p>
+                    <input type="text" name="developer-linked-in" class="dev-linked-in">
+                    <span class="error-message" type="linkedIn"></span>
+
+                    <p>Developer image - url <span>(optiona)</span>:</p>
+                    <input type="text" name="developer-image" class="dev-img">
+                    <span class="error-message" type="image"></span>
+                    <a id="create-developer" class="button-dark">create</a>
+                </form>
+            </div>
+            </div>
+            </section>
+        </main>
+        <br>
+        <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+    
+        <script type="module" src="js/create.js"></script>
+    </body>
+</html>

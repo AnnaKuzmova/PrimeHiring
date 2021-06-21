@@ -1,0 +1,59 @@
+.form-picture-holder.flex.center {
+    padding-top: 3em;
+}
+
+.create-dev-form {
+    width: 40%;
+    position: relative;
+    padding: 4em 1em 2em 1em;
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
+
+.create-dev-form img {
+    position: absolute;
+    top: -1%;
+    left: 50%;
+    right: 50%;
+    transform: translate(-50%, -50%);
+    display: block;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: var(--purple) 3px solid;
+}
+
+.create-dev-form p {
+    margin-top: 1em;
+    color: var(--purple);
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.create-dev-form p > span {
+    color: var(--black);
+    text-transform: lowercase;
+}
+
+.error-message {
+    color: var(--red);
+    font-weight: bold;
+}
+
+.create-dev-form input,textarea,select,option {
+    padding: 0.3em 0;
+    display: inline-block;
+    width: 100%;
+    background-color: transparent;
+    border: var(--gray) 1px solid;
+    border-radius: 3px;
+}
+
+.create-dev-form a:last-child {
+    margin-top: 2em;
+}
+
+.form-items {
+    width: 45%;
+}
