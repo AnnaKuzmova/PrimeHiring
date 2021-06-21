@@ -2,6 +2,13 @@ if(window.localStorage.getItem("developers") == null) {
     window.localStorage.setItem("developers", "[]")
 }
 
+//Selecting the confirmation modal for deleting a developer
+let confirmationModal = document.querySelector(".confirmation-modal")
+let confirmationContant = document.querySelector(".cofirmation-content")
+let deleteDeveloprButton = document.querySelector(".delete-developer-button")
+let cancelRemovalButton = document.querySelector(".cancel-removal")
+
+
 //Function for rendering every developer into an html card 
 //Getting the container/holder first, to push the developer card in the end
 let developersContainer = document.querySelector('.all-developers-holder.flex.center')
@@ -38,6 +45,7 @@ function createInfo(title, text) {
 }
 
 function renderDeveloperHTML(array) {
+    developersContainer.innerHTML = ""
     array.forEach(developer => {
         let cardHolder = document.createElement('article')
         cardHolder.classList.add('dev-card')
@@ -51,6 +59,25 @@ function renderDeveloperHTML(array) {
         }
 
         cardHolder.appendChild(devImage)
+        let nameHolder = document.createElement("h2")
+        let developerName = document.createTextNode(`${developer.developerName}`)
+        nameHolder.appendChild(developerName)
+        cardHolder.appendChild(nameHolder)
+        //Creating i tag for removing(deleting current developer)
+        let iTag = document.createElement("i")
+        iTag.classList.add("fas", "fa-times", "delete")
+        iTag.setAttribute("developer", developer.id)
+        //appending event listener to the delete icon
+        iTag.addEventListener("click", function(){
+            deleteDeveloprButton.setAttribute("developer", this.getAttribute("developer"))
+            confirmationModal.style.display = "block"
+            confirmationModal.style.top = `${window.scrollY.toFixed(2)}px`
+            confirmationContant.style.animation = "slideUp .5s ease-in-out forwards"
+
+
+        })
+        cardHolder.appendChild(iTag)
+
         let flexDiv = document.createElement('div')
         flexDiv.classList.add('flex')
 
@@ -111,6 +138,33 @@ function renderDeveloperHTML(array) {
         developersContainer.appendChild(cardHolder)
     })
 }
+
+//on clicking the cancel buton, we close the modal
+cancelRemovalButton.addEventListener("click", function(){
+    confirmationModal.style.display = "none"
+})
+
+//on clicking the delete button, we get the id value that was previously apended by perssing the  delete icon
+//Then we search through the initial array of developers for a dev with matching id
+//The  we delete it from the array
+deleteDeveloprButton.addEventListener("click", function(){
+    let developers = JSON.parse(window.localStorage.getItem("developers"))
+    let devIndex;
+     developers.forEach((dev,index) => {
+        if(dev.id == this.getAttribute("developer")) {
+            devIndex = index
+        }
+    })
+    //After finding the dev's index, we use splice to remove the selected dev's object
+    developers.splice(devIndex, 1)
+    console.log(developers)
+    //Saving the new array in the local store and rendering the developer's into the page
+    let devSerialized = JSON.stringify(developers)
+    window.localStorage.setItem("developers", devSerialized)
+    //Closing the modal
+    confirmationModal.style.display = "none"
+    renderDeveloperHTML(developers)
+})
 
 let allDevelopers = JSON.parse(window.localStorage.getItem("developers"))
 renderDeveloperHTML(allDevelopers)

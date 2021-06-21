@@ -15,7 +15,6 @@
             <nav>
               <div class="center">
                   <div class="flex">
-                      <div class="flex">
                       <h1 class="logo">Hiring</h1>
                       <a href="create.html" class="button-dark">add developer</a>
                   </div>
@@ -25,6 +24,7 @@
         <main>
             <section class="form-picture-holder">
                 <div class="center">
+                    <div class="flex">
                 <form action="" class="create-dev-form">
                     <img src="images/developer.png" alt="">
                     <div class="flex">
@@ -68,12 +68,12 @@
                             <p>Technology:</p>
                             <select name="developer-techology" class="dev-technology">
                                 <option value="none" selected>-select-</option>
-                                <option value="js">Javascript</option>
-                                <option value="java">Java</option>
-                                <option value="net">.NET</option>
-                                <option value="flutter">Flutter</option>
-                                <option value="python">Python</option>
-                                <option value="php">PHP</option>
+                                <option value="Javascript">Javascript</option>
+                                <option value="Java">Java</option>
+                                <option value=".Net">.NET</option>
+                                <option value="Flutter">Flutter</option>
+                                <option value="Python">Python</option>
+                                <option value="PHP">PHP</option>
                             </select>
                             <span class="error-message" type="technology"></span>
                         </div>
@@ -88,26 +88,41 @@
                             <span class="error-message" type="language"></span>
                         </div>
                     </div>
-                    <p>Description <span>(optiona)</span>:</p>
+                    <p>Description <span>(optional)</span>:</p>
                     <textarea name="developer-description" class="dev-description"></textarea>
                     <span class="error-message" type="description"></span>
 
-                    <p>linkedIN <span>(optiona)</span>:</p>
+                    <p>linkedIN <span>(optional)</span>:</p>
                     <input type="text" name="developer-linked-in" class="dev-linked-in">
                     <span class="error-message" type="linkedIn"></span>
 
-                    <p>Developer image - url <span>(optiona)</span>:</p>
+                    <p>Developer image - url <span>(optional)</span>:</p>
                     <input type="text" name="developer-image" class="dev-img">
                     <span class="error-message" type="image"></span>
                     <a id="create-developer" class="button-dark">create</a>
+                    <a href="index.html" class="navigate-to-index">cancel</a>
                 </form>
+            </div>
             </div>
             </div>
             </section>
         </main>
         <br>
         <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
-    
+        <section class="modal-created-success">
+            <article class="modal-information-holder">
+                <img src="images/success.png" alt="yey">
+                <h2>You have successfuly added new developer!</h2>
+                <a id="add-more-developers" class="button-dark">add more</a>
+                <a href="index.html">see developers</a>
+            </article>
+        </section>
+
+      
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/plugins/CSSPlugin.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenLite.min.js"></script>
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TimelineLite.min.js"></script>
         <script type="module" src="js/create.js"></script>
     </body>
 </html>

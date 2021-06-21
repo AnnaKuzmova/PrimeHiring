@@ -4,6 +4,8 @@ import Developer from "./developer.js";
 //Getting all the spans, that are holders for error messaged and getting the create button to add an event listener on click (submiting the form)
 let errorMessagesContainers = Array.from(document.querySelectorAll('.error-message'))
 let createDeveloperButton = document.querySelector("#create-developer")
+let modal = document.querySelector(".modal-created-success")
+let modalContent = document.querySelector(".modal-information-holder")
 
 createDeveloperButton.addEventListener("click", function(){
     //Creating object where we will store the error messages, after validating them
@@ -60,6 +62,31 @@ createDeveloperButton.addEventListener("click", function(){
         developers.push(newDeveloper)
         let developers_serialized = JSON.stringify(developers)
         window.localStorage.setItem("developers", developers_serialized)
+        //Animation the success modal with GSAP
+        const tl = new TimelineLite()
+        
+        modal.style.display = "block"
+        modal.style.top = `${window.scrollY.toFixed(2)}px`
+
+        tl.from(modal, 1, {
+            opacity: 0
+        })
+        .from(modalContent, 1, {
+            y : 200,
+            opacity: 0
+        })
+        .to(modalContent, 1, {
+            y: 0,
+            opacity: 1
+        })
+
     }
 
+})
+
+let addMoreDevelopersButton = document.querySelector('#add-more-developers')
+
+addMoreDevelopersButton.addEventListener("click", function(){
+    modal.style.display = "none"
+    location.reload();
 })
