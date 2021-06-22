@@ -78,6 +78,11 @@ body {
     
 }
 
+.dev-card a {
+    display: inline-block;
+    margin-right: 2em;
+}
+
 .fas.fa-times.delete {
     display: block;
     position: absolute;

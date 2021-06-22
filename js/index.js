@@ -134,6 +134,13 @@ function renderDeveloperHTML(array) {
         buttonHire.appendChild(hireText)
         articleRelatdInfo.appendChild(buttonHire)
 
+        let buttonEdit = document.createElement('a')
+        buttonEdit.classList.add("button-dark")
+        let editText = document.createTextNode("edit")
+        buttonEdit.appendChild(editText)
+        buttonEdit.setAttribute("href", `edit.html?id=${developer.id}`)
+        articleRelatdInfo.appendChild(buttonEdit)
+
         cardHolder.appendChild(articleRelatdInfo)
         developersContainer.appendChild(cardHolder)
     })

@@ -43,11 +43,12 @@ createDeveloperButton.addEventListener("click", function(){
     
     //Checking for errors. If true we will display the errors, otherwise we will save the data
     if(Array.from(Object.values(errorMessages)).filter(i => i.length > 0).length > 0) {
-        console.log("error")
-        errorMessagesContainers.forEach(span => {
-            span.innerHTML = errorMessages[span.getAttribute("type")]
-        })
+        //There are errors
+            errorMessagesContainers.forEach(span => {
+                span.innerHTML = errorMessages[span.getAttribute("type")]
+            })
     }else {
+        //No errors
         //Getting the developer's array from the local storage
         let developers = JSON.parse(window.localStorage.getItem("developers"))
         let newDeveloper = new Developer(devName,devEmail, devPhoneNumber, devImage,devPrice, devTechnology, devDescription, devYearsOfXP, devNativeLang, devLocation ,devLinkedIn)
