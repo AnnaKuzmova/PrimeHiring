@@ -14,19 +14,64 @@
             <nav>
               <div class="center">
                   <div class="flex">
-                      <h1 class="logo">Hiring</h1>
+                      <h1 class="logo">RimeHiring</h1>
                       <a href="create.html" class="button-dark">add developer</a>
                   </div>
               </div>
             </nav>
         </header>
         <main>
-            <section class="all-developers-holder flex center">
-                        
+            <section class="control-buttons-holder">
+                <div class="center">
+                    <div class="flex">
+                        <p>
+                            <a type="active" id="all-developers" class="control-button">all developers</a>
+                            <a id="hired-developers" class="control-button">hired developers</a>
+                        </p>
+                        <a id="hire-team-button" class="button-dark">hire a team</a>
+                    </div>
+                </div>
             </section>
+            <div class="center">
+            <div class="developer-main-holder">
+                <section class="all-developers-holder">
+                        
+                </section>
+                <section class="hired-developers">
+                    
+                </section>
+            </div>
+        </div>
         </main>
 
-        <section class="confirmation-modal">
+    
+
+
+        <!--MODALS-->
+        <!-- Modal for hiring a single developer -->
+        <section id="hire-developer-modal" class="modal">
+            <article class="modal-content">
+                <img src="images/incognito.png" alt="">
+                <h2>Hire <span class="dev-name">Michael</span></h2>
+                <form>
+                    <h4>specify period of time:</h4>
+                    <label for="start-date">
+                        start date: 
+                        <input type="date" name="start-date" class="start-date">
+                    </label>
+                    <label for="start-date">
+                        end date: 
+                        <input type="date" name="end-date" class="end-date">
+                        <p class="error-message"></p>
+                    </label>
+                    <a id="hire-developer-button" class="button-light">hire</a>
+                    <a id="cancel-hire-button" class="button-dark">cancel</a>
+                </form>
+            </article>
+        </section>
+
+        <!-- Modal for confirmination to delete a developer -->
+        <section id="confirmation-modal" class="modal">
             <article class="cofirmation-content">
                 <img src="images/remove.png" alt="delete icon">
                 <h2>Are you sure?</h2>
@@ -38,6 +83,25 @@
                 <a class="delete-developer-button">delete</a>
             </article>
         </section>
+
+        <!--
+            Modal for informing the user that a developer has been hired already
+        -->
+        <section class="modal" id="modal-hired-developer">
+            <article class="hired-dev-content">
+                <img src="images/oops.png" alt="">
+                <h2>
+                    Opps! It looks like <span class="dev-name">Michael</span> has been hired already
+                </h2>
+                <a class="button-dark">check other developers</a>
+            </article>
+        </section>
+        <!--
+            Script tags for GSAP and index.js
+        -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/plugins/CSSPlugin.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenLite.min.js"></script>
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TimelineLite.min.js"></script>
         <script src="js/index.js"></script>
     </body>
 </html>

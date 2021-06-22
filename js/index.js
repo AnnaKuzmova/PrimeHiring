@@ -2,16 +2,34 @@ if(window.localStorage.getItem("developers") == null) {
     window.localStorage.setItem("developers", "[]")
 }
 
+if(window.localStorage.getItem("hiredDevelopers") == null ) {
+    window.localStorage.setItem("hiredDevelopers", "[]")
+    
+}
+
+let allDevelopers = JSON.parse(window.localStorage.getItem("developers"))
+let hiredDevelopers = JSON.parse(window.localStorage.getItem("hiredDevelopers"))
+
 //Selecting the confirmation modal for deleting a developer
-let confirmationModal = document.querySelector(".confirmation-modal")
+let confirmationModal = document.querySelector("#confirmation-modal")
 let confirmationContant = document.querySelector(".cofirmation-content")
 let deleteDeveloprButton = document.querySelector(".delete-developer-button")
 let cancelRemovalButton = document.querySelector(".cancel-removal")
 
+//Selecting the container that informs the user for already hired developer and the close button for this modal
+let modalForHiredDev = document.querySelector('#modal-hired-developer')
+let closeModalForHiredDev = document.querySelector('#modal-hired-developer a')
+let modalHiredDevText = document.querySelector('#modal-hired-developer .dev-name')
+
+closeModalForHiredDev.addEventListener('click', () => {
+    modalForHiredDev.style.display = 'none'
+})
+
+
 
 //Function for rendering every developer into an html card 
 //Getting the container/holder first, to push the developer card in the end
-let developersContainer = document.querySelector('.all-developers-holder.flex.center')
+let developersContainer = document.querySelector('.all-developers-holder')
 
 //Function for creating article element, that hold data (dislayed, using social icons)
 //Grouped it with function to avoid wrtiting the same pice of code multiple time
@@ -44,8 +62,8 @@ function createInfo(title, text) {
     return pElement;
 }
 
-function renderDeveloperHTML(array) {
-    developersContainer.innerHTML = ""
+function renderDeveloperHTML(container,array) {
+    container.innerHTML = ""
     array.forEach(developer => {
         let cardHolder = document.createElement('article')
         cardHolder.classList.add('dev-card')
@@ -127,11 +145,34 @@ function renderDeveloperHTML(array) {
         }
 
         //Creating the button for hiring a single developer
-
         let buttonHire = document.createElement('a')
         buttonHire.classList.add("button-light")
         let hireText = document.createTextNode("hire")
         buttonHire.appendChild(hireText)
+        buttonHire.setAttribute('developer', `${developer.id}`)
+        //appending an event listener on click
+        //check is developer is hired
+        buttonHire.addEventListener('click', function(){
+            let dev = allDevelopers.find(dev => dev.id == this.getAttribute('developer'))
+            hireButton.setAttribute('developer', developer.id)
+                //We check if there are any hired developer
+                //If there are then we check if out developer has been already hired
+                if(hiredDevelopers.length == 0 || hiredDevelopers.filter(dev => dev.id == this.getAttribute('developer')).length == 0) {
+                    //There were no hired developers or the developer hasnt been hired already
+                    hireModalDevImage.setAttribute('src', dev.profilePicture)
+                    hireModalDevName.innerHTML = dev.developerName
+                    //We get the user's current height location and set it to the modal's top property
+                    hireModal.style.top = `${window.scrollY.toFixed(2)}px`
+                    hireModal.style.display = 'block'
+                }else {
+                    //The developer has been hired
+                    //We display the apology-sorry modal
+                    modalHiredDevText.innerHTML = dev.developerName
+                    modalForHiredDev.style.top = `${window.scrollY.toFixed(2)}px`
+                    modalForHiredDev.style.display = 'block'
+                }
+            }
+        )
         articleRelatdInfo.appendChild(buttonHire)
 
         let buttonEdit = document.createElement('a')
@@ -141,8 +182,16 @@ function renderDeveloperHTML(array) {
         buttonEdit.setAttribute("href", `edit.html?id=${developer.id}`)
         articleRelatdInfo.appendChild(buttonEdit)
 
+        let buttonAddToTeam = document.createElement('a')
+        buttonAddToTeam.classList.add('button-green')
+        buttonAddToTeam.setAttribute('id', 'add-dev-to-team')
+        let addTeamText = document.createTextNode('add to team')
+        buttonAddToTeam.appendChild(addTeamText)
+        buttonAddToTeam.setAttribute('developer', `${developer.id}`)
+        articleRelatdInfo.appendChild(buttonAddToTeam)
+
         cardHolder.appendChild(articleRelatdInfo)
-        developersContainer.appendChild(cardHolder)
+        container.appendChild(cardHolder)
     })
 }
 
@@ -173,8 +222,111 @@ deleteDeveloprButton.addEventListener("click", function(){
     renderDeveloperHTML(developers)
 })
 
-let allDevelopers = JSON.parse(window.localStorage.getItem("developers"))
-renderDeveloperHTML(allDevelopers)
+//Selecting the buttons that display all the developers and hired developers
+//Then we append event listener on click to display different contet according to their purpose
+//Using GSAP to animate the content show and hide effect
+let displayAllDevelopersButton = document.querySelector('#all-developers')
+let displayHiredDevelopersButton = document.querySelector('#hired-developers')
+
+displayAllDevelopersButton.addEventListener('click', function(){
+    if(!this.hasAttribute('type')) {
+        Array.from(document.querySelectorAll('.control-button')).forEach(btn => btn.removeAttribute('type'))
+        this.setAttribute('type', 'active')
+        let tl = new TimelineLite()
+
+        tl.from(hiredDevelopersContainer, 0.3 ,{
+            x : 0,
+            opacity: 1,
+            ease: "Power2"
+        })
+        .to(hiredDevelopersContainer, 0.3, {
+            x:200,
+            opacity: 0,
+            onComplete: function(){
+                hiredDevelopersContainer.style.display = 'none'
+                developersContainer.style.display = 'flex'
+            },
+            ease: "Power2"
+        })
+        .to(developersContainer, 0.3, {
+            x: 0,
+            opacity: 1,
+            ease: "Power2"
+        })
+    }
+})
+
+displayHiredDevelopersButton.addEventListener('click', function(){
+    if(!this.hasAttribute('type')) {
+        Array.from(document.querySelectorAll('.control-button')).forEach(btn => btn.removeAttribute('type'))
+        this.setAttribute('type', 'active')
+        let tl = new TimelineLite()
+
+        tl.from(developersContainer, 0.3 ,{
+            x : 0,
+            opacity: 1,
+            ease: "Power2"
+        })
+        .to(developersContainer, 0.3, {
+            x: '-200',
+            opacity: 0,
+            onComplete : function() {
+                developersContainer.style.display = 'none',
+                hiredDevelopersContainer.style.display = 'flex'
+            },
+            ease: "Power2"
+        })
+        .to(hiredDevelopersContainer, 0.3, {
+            x: 0,
+            opacity: 1,
+            ease: "Power2"
+        })
+    }
+})
+
+//Selecting the modal for hiring a developer
+let hireModal = document.querySelector('#hire-developer-modal')
+let hireModalDevImage = document.querySelector('.modal-content img')
+let hireModalDevName = document.querySelector('.dev-name')
+let cancelHireButton = document.querySelector('#cancel-hire-button')
+let hireButton = document.querySelector('#hire-developer-button')
+let hireStartDate = document.querySelector('.start-date')
+let hireEndDate = document.querySelector('.end-date')
+let errorMessage = document.querySelector('.error-message')
+
+cancelHireButton.addEventListener('click', function(){
+    hireModal.style.display = 'none'
+})
+
+//selecting the container for hired developers
+let hiredDevelopersContainer = document.querySelector('.hired-developers')
+
+hireButton.addEventListener('click', function(){
+    errorMessage.innerHTML = ''
+    let currentDay = new Date().toISOString().slice(0, 10).split('-')
+    if(hireStartDate.value == "" && hireEndDate.value == ""){
+        errorMessage.innerHTML = "To hire a developer there must be set a start and end date."
+    }else {
+        let chosenDate = hireStartDate.value.split('-')
+        if(parseInt(currentDay[0]) > parseInt(chosenDate[0]) || parseInt(currentDay[1]) > parseInt(chosenDate[1]) || parseInt(currentDay[2]) > parseInt(chosenDate[2])) {
+            errorMessage.innerHTML = 'Start date cannot be set to previous period of time.'
+        } else {
+            //Now we hire
+            developer = allDevelopers.find(dev => dev.id == this.getAttribute('developer'))
+            developer.startDate = hireStartDate.value
+            developer.endDate = hireEndDate.value
+            hiredDevelopers.push(developer)
+            let hiredDevelopers_serialized = JSON.stringify(hiredDevelopers)
+            window.localStorage.setItem('hiredDevelopers',hiredDevelopers_serialized)
+            hireModal.style.display = 'none'
+            renderDeveloperHTML(hiredDevelopersContainer, hiredDevelopers)
+        }
+    }
+    
+})
+
+renderDeveloperHTML(developersContainer ,allDevelopers)
+renderDeveloperHTML(hiredDevelopersContainer, hiredDevelopers)
 
 
 

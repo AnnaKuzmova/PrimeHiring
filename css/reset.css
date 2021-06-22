@@ -24,7 +24,7 @@ a {
 
 /*Setting basic styles for buttons*/
 
-.button-dark,.button-light {
+.button-dark,.button-light,.button-green {
     display: inline-block;
     padding: .7em 1.8em;
     border-radius: 25px;
@@ -37,16 +37,32 @@ a {
 .button-dark {
     background-color: var(--dark-purple);
     color: var(--white);
+    border: var(--dark-purple) 1px solid;
 }
 
 .button-light {
     background-color: var(--purple);
     color: var(--white);
+    border: var(--purple) 1px solid;
+}
+
+.button-green {
+    background-color: var(--green);
+    color: var(--white);
+    border: var(--green) 1px solid;
+}
+
+.button-green:hover {
+    background-color: transparent;
+    border: var(--green) 1px solid;
+    color: var(--green);
+    font-weight: bold;
+    transition: .3s all ease-in;
 }
 
 .button-dark:hover {
     background-color: transparent;
-    border: var(--dark-purple) 2px solid;
+    border: var(--dark-purple) 1px solid;
     color: var(--dark-purple);
     font-weight: bold;
     transition: .3s all ease-in;
@@ -54,7 +70,7 @@ a {
 
 .button-light:hover {
     background-color: transparent;
-    border: var(--purple) 2px solid;
+    border: var(--purple) 1px solid;
     color: var(--purple);
     font-weight: bold;
     transition: .3s all ease-in;

@@ -66,8 +66,9 @@ createDeveloperButton.addEventListener("click", function(){
         //Animation the success modal with GSAP
         const tl = new TimelineLite()
         
-        modal.style.display = "block"
+         //We get the user's current height location and set it to the modal's top property
         modal.style.top = `${window.scrollY.toFixed(2)}px`
+        modal.style.display = "block"
 
         tl.from(modal, 1, {
             opacity: 0
