@@ -183,8 +183,7 @@ function renderDeveloperHTML(container,array) {
         articleRelatdInfo.appendChild(buttonEdit)
 
         let buttonAddToTeam = document.createElement('a')
-        buttonAddToTeam.classList.add('button-green')
-        buttonAddToTeam.setAttribute('id', 'add-dev-to-team')
+        buttonAddToTeam.classList.add('button-green', 'add-dev-to-team')
         let addTeamText = document.createTextNode('add to team')
         buttonAddToTeam.appendChild(addTeamText)
         buttonAddToTeam.setAttribute('developer', `${developer.id}`)
@@ -325,8 +324,42 @@ hireButton.addEventListener('click', function(){
     
 })
 
+
 renderDeveloperHTML(developersContainer ,allDevelopers)
 renderDeveloperHTML(hiredDevelopersContainer, hiredDevelopers)
+
+//Selecting the button for opening thee hire section
+let openHireTeamSection = document.querySelector('#hire-team-button')
+let teamHireModal = document.querySelector('.developer-team-container')
+let allDeveloperAddButtons = document.querySelectorAll(".button-green.add-dev-to-team")
+let cancelHireTeamButton = document.querySelector('#cancel-hire-team')
+let team = []
+
+openHireTeamSection.addEventListener('click', function(){
+    teamHireModal.style.left = '0'
+    allDeveloperAddButtons.forEach(btn => {
+        btn.style.display = 'inline-block'
+        btn.addEventListener('click', () => {
+            let dev = allDevelopers.find(dev => dev.id == btn.getAttribute('developer'))
+            if(hiredDevelopers.length == 0 || hiredDevelopers.filter(dev => dev.id == btn.getAttribute('developer')).length == 0) {
+                team.push(dev)
+                renderDeveloperHTML(teamHireModal, team)
+            }else {
+                modalHiredDevText.innerHTML = dev.developerName
+                modalForHiredDev.style.top = `${window.scrollY.toFixed(2)}px`
+                modalForHiredDev.style.display = 'block'
+            }
+        })
+    })
+})
+
+cancelHireTeamButton.addEventListener('click', function(){
+    team.length = 0
+    teamHireModal.style.left = '-100%'
+    allDeveloperAddButtons.forEach(btn => {
+        btn.style.display = 'none'
+    })
+})
 
 
 
