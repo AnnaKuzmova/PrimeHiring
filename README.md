@@ -8,6 +8,8 @@ For creating a new developer, there is a page (``create.html``) built to display
 
 When hovering the developer's card an icon for deleting the current developer shows up. When clicking it a confirmation modal display, asking the user if he wants to delete the selected developer. 
 
+When clicking the hire button from a developer's card(holder) the system checks if he has been already hiren and displays a modal informing the user that the current developer has been hired. If not - then a modal shows up where the user must set a start and end date.
+
 For storing records of the developers and the hired developers I have used the local storage via ``window.localStorage.getItem('yourItemName')`` - for getting the records and ``window.localStorage.setItem('yourItemName', 'yourItemStrigified')`` - for updating or creating a record.
 
 # Used technologies :
@@ -18,7 +20,7 @@ For storing records of the developers and the hired developers I have used the l
 
 # Technical description :
 * Installation :
--To install the code you can open GitBash on a directory of your choice on your local device and type: ``git pull https://github.com/AnnaKuzmova/PrimeHiring.git`` 
+- To install the code you can open GitBash on a directory of your choice on your local device and type: ``git pull https://github.com/AnnaKuzmova/PrimeHiring.git`` 
 - Creating a local repository of the project on your local device : ``git clone https://github.com/AnnaKuzmova/PrimeHiring.git``
--Downloading the ZIP file
+- Downloading the ZIP file
 * Setup - when openig the ``index.html`` the page will be blank (without taking the header and the few visible buttons in advance.). First thing you would want to do is to add developers by clicking the ADD DEVELOPERS button(anchor tag) from the navigation bar. 
