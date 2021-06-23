@@ -1,3 +1,4 @@
+//Declaring space in the local storage for developers if not declared
 if(window.localStorage.getItem("developers") == null) {
     window.localStorage.setItem("developers", "[]")
 }
@@ -62,6 +63,9 @@ function createInfo(title, text) {
     return pElement;
 }
 
+//the render funcion takes 3rd argument for type of the rendering information
+//If the type is default we display all the data
+//If the type is "team" we display everything except the buttons for edit and hire a developer
 function renderDeveloperHTML(container,array,type) {
     container.innerHTML = ""
     array.forEach(developer => {
@@ -320,6 +324,7 @@ hireButton.addEventListener('click', function(){
     if(hireStartDate.value == "" && hireEndDate.value == ""){
         errorMessage.innerHTML = "To hire a developer there must be set a start and end date."
     }else {
+        //Validating the dates for the hiring
         let chosenDate = hireStartDate.value.split('-')
         if(parseInt(currentDay[0]) > parseInt(chosenDate[0]) || parseInt(currentDay[1]) > parseInt(chosenDate[1]) || parseInt(currentDay[2]) > parseInt(chosenDate[2])) {
             errorMessage.innerHTML = 'Start date cannot be set to previous period of time.'
@@ -338,6 +343,7 @@ hireButton.addEventListener('click', function(){
     
 })
 
+//Finally we render the developers
 renderDeveloperHTML(developersContainer ,allDevelopers, 'default')
 renderDeveloperHTML(hiredDevelopersContainer, hiredDevelopers, 'team')
 

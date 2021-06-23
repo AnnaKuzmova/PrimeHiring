@@ -4,6 +4,8 @@ body {
     overflow-x: hidden;
 }
 
+/*Styling the header*/
+
 .main-header {
     padding: 1em 0;
     margin-bottom: 6em;
@@ -20,6 +22,8 @@ body {
 .main-header a {
     margin-left: auto;
 }
+
+/*Styling the developers holders*/
 
 .all-developers-holder, .hired-developers {
     display: flex;
