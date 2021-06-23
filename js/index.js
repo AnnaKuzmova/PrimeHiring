@@ -1,12 +1,63 @@
 //Declaring space in the local storage for developers if not declared
 if(window.localStorage.getItem("developers") == null) {
-    window.localStorage.setItem("developers", "[]")
+    let devs = [
+        {
+            developerName : "Alana Gale ",
+            email : "alanagale@gmail.com",
+            description : "Hello! I my name is Alana. I like creating stuff.",
+            location : "London, UK",
+            nativeLanguage: "English",
+            phoneNumber : "0154367864",
+            pricePerHour: "40",
+            technology: "PHP",
+            yearsOfExpirience : "5",
+            linkedInProfile: "",
+            profilePicture : "https://images.unsplash.com/photo-1601412436009-d964bd02edbc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80",
+        },
+            {
+            developerName : "Noa Santos",
+            email : "noahsantos@gmail.com",
+            description : "Hello! Hire me to build your awesome app.",
+            location : "LA, USA",
+            nativeLanguage: "English",
+            phoneNumber : "0154367664",
+            pricePerHour: "50",
+            technology: "Javascript",
+            yearsOfExpirience : "7",
+            linkedInProfile: "",
+            profilePicture : "https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80"
+            },
+            {
+            developerName : "Raya Georgieva",
+            email : "rayageorgieva@gmail.com",
+            description : "Hello! I am Raya! Hire to build super awesome projects from scratch.",
+            location : "Sofia, Bulgaria",
+            nativeLanguage: "Bulgarian",
+            phoneNumber : "0154367555",
+            pricePerHour: "30",
+            technology: ".NET",
+            yearsOfExpirience : "3",
+            linkedInProfile: "",
+            profilePicture : "https://images.unsplash.com/photo-1584997159889-8bb96d0a2217?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
+            }
+    ]
+    let id
+    devs.forEach(developer => {
+        do {
+            id = '_' + Math.random().toString(36).substr(2, 9)
+        }while(devs.filter(dev => dev.id == id).length > 0)
+        developer.id = id
+    })
+    let devsSerialized = JSON.stringify(devs)
+    window.localStorage.setItem("developers", devsSerialized)
 }
 
 if(window.localStorage.getItem("hiredDevelopers") == null ) {
     window.localStorage.setItem("hiredDevelopers", "[]")
     
 }
+
+
 
 let allDevelopers = JSON.parse(window.localStorage.getItem("developers"))
 let hiredDevelopers = JSON.parse(window.localStorage.getItem("hiredDevelopers"))
@@ -24,6 +75,48 @@ let modalHiredDevText = document.querySelector('#modal-hired-developer .dev-name
 
 closeModalForHiredDev.addEventListener('click', () => {
     modalForHiredDev.style.display = 'none'
+})
+
+//Selecting the modal for hiring a developer
+let hireModal = document.querySelector('#hire-developer-modal')
+let hireModalDevImage = document.querySelector('.modal-content img')
+let hireModalDevName = document.querySelector('.dev-name')
+let cancelHireButton = document.querySelector('#cancel-hire-button')
+let hireButn = document.querySelector('#hire-developer-button')
+let hireStartDate = document.querySelector('.start-date')
+let hireEndDate = document.querySelector('.end-date')
+let errorMessage = document.querySelector('.error-message')
+
+cancelHireButton.addEventListener('click', function(){
+    hireModal.style.display = 'none'
+})
+
+//selecting the container for hired developers
+let hiredDevelopersContainer = document.querySelector('.hired-developers')
+
+hireButn.addEventListener('click', function(){
+    errorMessage.innerHTML = ''
+    let currentDay = new Date().toISOString().slice(0, 10).split('-')
+    if(hireStartDate.value == "" && hireEndDate.value == ""){
+        errorMessage.innerHTML = "To hire a developer there must be set a start and end date."
+    }else {
+        //Validating the dates for the hiring
+        let chosenDate = hireStartDate.value.split('-')
+        if(parseInt(currentDay[0]) > parseInt(chosenDate[0]) || parseInt(currentDay[1]) > parseInt(chosenDate[1]) || parseInt(currentDay[2]) > parseInt(chosenDate[2])) {
+            errorMessage.innerHTML = 'Start date cannot be set to previous period of time.'
+        } else {
+            //Now we hire
+            developer = allDevelopers.find(dev => dev.id == this.getAttribute('developer'))
+            developer.startDate = hireStartDate.value
+            developer.endDate = hireEndDate.value
+            hiredDevelopers.push(developer)
+            let hiredDevelopers_serialized = JSON.stringify(hiredDevelopers)
+            window.localStorage.setItem('hiredDevelopers',hiredDevelopers_serialized)
+            hireModal.style.display = 'none'
+            renderDeveloperHTML(hiredDevelopersContainer, hiredDevelopers)
+        }
+    }
+    
 })
 
 
@@ -170,7 +263,7 @@ function renderDeveloperHTML(container,array,type) {
         //check is developer is hired
         buttonHire.addEventListener('click', function(){
             let dev = allDevelopers.find(dev => dev.id == this.getAttribute('developer'))
-            hireButton.setAttribute('developer', developer.id)
+            hireButn.setAttribute('developer', developer.id)
                 //We check if there are any hired developer
                 //If there are then we check if out developer has been already hired
                 if(hiredDevelopers.length == 0 || hiredDevelopers.filter(dev => dev.id == this.getAttribute('developer')).length == 0) {
@@ -301,47 +394,7 @@ displayHiredDevelopersButton.addEventListener('click', function(){
     }
 })
 
-//Selecting the modal for hiring a developer
-let hireModal = document.querySelector('#hire-developer-modal')
-let hireModalDevImage = document.querySelector('.modal-content img')
-let hireModalDevName = document.querySelector('.dev-name')
-let cancelHireButton = document.querySelector('#cancel-hire-button')
-let hireButton = document.querySelector('#hire-developer-button')
-let hireStartDate = document.querySelector('.start-date')
-let hireEndDate = document.querySelector('.end-date')
-let errorMessage = document.querySelector('.error-message')
 
-cancelHireButton.addEventListener('click', function(){
-    hireModal.style.display = 'none'
-})
-
-//selecting the container for hired developers
-let hiredDevelopersContainer = document.querySelector('.hired-developers')
-
-hireButton.addEventListener('click', function(){
-    errorMessage.innerHTML = ''
-    let currentDay = new Date().toISOString().slice(0, 10).split('-')
-    if(hireStartDate.value == "" && hireEndDate.value == ""){
-        errorMessage.innerHTML = "To hire a developer there must be set a start and end date."
-    }else {
-        //Validating the dates for the hiring
-        let chosenDate = hireStartDate.value.split('-')
-        if(parseInt(currentDay[0]) > parseInt(chosenDate[0]) || parseInt(currentDay[1]) > parseInt(chosenDate[1]) || parseInt(currentDay[2]) > parseInt(chosenDate[2])) {
-            errorMessage.innerHTML = 'Start date cannot be set to previous period of time.'
-        } else {
-            //Now we hire
-            developer = allDevelopers.find(dev => dev.id == this.getAttribute('developer'))
-            developer.startDate = hireStartDate.value
-            developer.endDate = hireEndDate.value
-            hiredDevelopers.push(developer)
-            let hiredDevelopers_serialized = JSON.stringify(hiredDevelopers)
-            window.localStorage.setItem('hiredDevelopers',hiredDevelopers_serialized)
-            hireModal.style.display = 'none'
-            renderDeveloperHTML(hiredDevelopersContainer, hiredDevelopers)
-        }
-    }
-    
-})
 
 //Finally we render the developers
 renderDeveloperHTML(developersContainer ,allDevelopers, 'default')

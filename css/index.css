@@ -29,6 +29,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
     width: 100%;
 }
 
@@ -185,7 +186,7 @@ body {
 }
 
 #hire-developer-modal.modal {
-    display: none;
+    display: block;
 }
 
 .modal-content,.hired-dev-content,.cofirmation-content {
@@ -198,7 +199,16 @@ body {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-.modal-content,.hired-dev-content img {
+.hired-dev-content img {
+    margin-bottom: 1em;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: var(--dark-purple) 3px solid;
+}
+
+.modal-content img {
     margin-bottom: 1em;
     width: 120px;
     height: 120px;
@@ -281,6 +291,7 @@ body {
 .message {
     color: var(--red);
 }
+
 
 
 @keyframes slideUp {

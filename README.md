@@ -19,8 +19,7 @@ For storing records of the developers and the hired developers I have used the l
 * GSAP - Js animation library
 
 # Technical description :
-* Installation :
-- To install the code you can open GitBash on a directory of your choice on your local device and type: ``git pull https://github.com/AnnaKuzmova/PrimeHiring.git`` 
-- Creating a local repository of the project on your local device : ``git clone https://github.com/AnnaKuzmova/PrimeHiring.git``
-- Downloading the ZIP file
-* Setup - when openig the ``index.html`` the page will be blank (without taking the header and the few visible buttons in advance.). First thing you would want to do is to add developers by clicking the ADD DEVELOPERS button(anchor tag) from the navigation bar. 
+* Set up:
+ * Creating a local repository of the project on your local device : ``git clone https://github.com/AnnaKuzmova/PrimeHiring.git``
+
+ 
