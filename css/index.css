@@ -186,7 +186,7 @@ body {
 }
 
 #hire-developer-modal.modal {
-    display: block;
+    display: none;
 }
 
 .modal-content,.hired-dev-content,.cofirmation-content {
