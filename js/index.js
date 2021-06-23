@@ -62,7 +62,7 @@ function createInfo(title, text) {
     return pElement;
 }
 
-function renderDeveloperHTML(container,array) {
+function renderDeveloperHTML(container,array,type) {
     container.innerHTML = ""
     array.forEach(developer => {
         let cardHolder = document.createElement('article')
@@ -86,14 +86,25 @@ function renderDeveloperHTML(container,array) {
         iTag.classList.add("fas", "fa-times", "delete")
         iTag.setAttribute("developer", developer.id)
         //appending event listener to the delete icon
+        if(type == 'default') {
         iTag.addEventListener("click", function(){
             deleteDeveloprButton.setAttribute("developer", this.getAttribute("developer"))
             confirmationModal.style.display = "block"
             confirmationModal.style.top = `${window.scrollY.toFixed(2)}px`
             confirmationContant.style.animation = "slideUp .5s ease-in-out forwards"
-
-
         })
+        } else if (type == 'team') {
+          iTag.addEventListener('click', function(){
+              let devIndex
+              team.forEach((dev,index) => {
+                  if(dev.id == this.getAttribute('developer')) {
+                      devIndex
+                  }
+              })
+              team.splice(devIndex, 1)
+              renderDeveloperHTML(devTeamContainer,team, 'team')
+          })
+        }
         cardHolder.appendChild(iTag)
 
         let flexDiv = document.createElement('div')
@@ -144,7 +155,8 @@ function renderDeveloperHTML(container,array) {
             articleRelatdInfo.appendChild(pEl)
         }
 
-        //Creating the button for hiring a single developer
+        if(type == 'default') {
+              //Creating the button for hiring a single developer
         let buttonHire = document.createElement('a')
         buttonHire.classList.add("button-light")
         let hireText = document.createTextNode("hire")
@@ -188,6 +200,8 @@ function renderDeveloperHTML(container,array) {
         buttonAddToTeam.appendChild(addTeamText)
         buttonAddToTeam.setAttribute('developer', `${developer.id}`)
         articleRelatdInfo.appendChild(buttonAddToTeam)
+
+        }
 
         cardHolder.appendChild(articleRelatdInfo)
         container.appendChild(cardHolder)
@@ -324,15 +338,17 @@ hireButton.addEventListener('click', function(){
     
 })
 
-
-renderDeveloperHTML(developersContainer ,allDevelopers)
-renderDeveloperHTML(hiredDevelopersContainer, hiredDevelopers)
+renderDeveloperHTML(developersContainer ,allDevelopers, 'default')
+renderDeveloperHTML(hiredDevelopersContainer, hiredDevelopers, 'team')
 
 //Selecting the button for opening thee hire section
 let openHireTeamSection = document.querySelector('#hire-team-button')
 let teamHireModal = document.querySelector('.developer-team-container')
+let devTeamContainer = document.querySelector('.dev-team')
 let allDeveloperAddButtons = document.querySelectorAll(".button-green.add-dev-to-team")
 let cancelHireTeamButton = document.querySelector('#cancel-hire-team')
+let hideModalBtn = document.querySelector('.close-modal')
+let hireTeamBtn = document.querySelector('#hire-team-button.button-light')
 let team = []
 
 openHireTeamSection.addEventListener('click', function(){
@@ -343,7 +359,8 @@ openHireTeamSection.addEventListener('click', function(){
             let dev = allDevelopers.find(dev => dev.id == btn.getAttribute('developer'))
             if(hiredDevelopers.length == 0 || hiredDevelopers.filter(dev => dev.id == btn.getAttribute('developer')).length == 0) {
                 team.push(dev)
-                renderDeveloperHTML(teamHireModal, team)
+                renderDeveloperHTML(devTeamContainer, team, 'team')
+                teamHireModal.style.left = '0'
             }else {
                 modalHiredDevText.innerHTML = dev.developerName
                 modalForHiredDev.style.top = `${window.scrollY.toFixed(2)}px`
@@ -359,6 +376,45 @@ cancelHireTeamButton.addEventListener('click', function(){
     allDeveloperAddButtons.forEach(btn => {
         btn.style.display = 'none'
     })
+})
+
+hideModalBtn.addEventListener('click', function(){
+    teamHireModal.style.left = '-100%'
+})
+
+hireTeamBtn.addEventListener('click', function(){
+    let startDate = document.querySelector('.team-start-date')
+    let endDate = document.querySelector('.team-end-date')
+    let message = document.querySelector('.message')
+    let currentDay = new Date().toISOString().slice(0, 10).split('-')
+    //Validating the team start and end date
+    if(startDate.value == "" && endDate.value == ""){
+        message.innerHTML = "To hire a developer there must be set a start and end date."
+    }else {
+        let chosenDate = startDate.value.split('-')
+        if(parseInt(currentDay[0]) > parseInt(chosenDate[0]) || parseInt(currentDay[1]) > parseInt(chosenDate[1]) || parseInt(currentDay[2]) > parseInt(chosenDate[2])) {
+            message.innerHTML = 'Start date cannot be set to previous period of time.'
+        }else {
+            //We hire if there are developers added in a tam
+           if(team.length > 0) {
+               let developer
+                team.forEach(dev => {
+                    developer = dev
+                    developer.startDate = startDate.value
+                    developer.endDate = endDate.value
+                    hiredDevelopers.push(developer)
+                })
+                let hiredDevelopers_serialized = JSON.stringify(hiredDevelopers)
+                window.localStorage.setItem('hiredDevelopers', hiredDevelopers_serialized)
+                renderDeveloperHTML(hiredDevelopersContainer, hiredDevelopers)
+                devTeamContainer.innerHTML = ''
+                teamHireModal.style.left = '-100%'
+                allDeveloperAddButtons.forEach(btn => {
+                    btn.style.display = 'none'
+                })
+           }
+        }
+    }
 })
 
 
